@@ -65,14 +65,15 @@ const scrapeCourses = async () => {
 
     const courses = await page.$$eval('.discovery-card-inner-wrapper', nodes => {
         return nodes.map(node => {
+
             const a = node
                 .querySelector('a');
 
             const courseUrl = a.href;
 
-            const title = cleanWhiteSpaces(a.querySelector('div > h3').textContent);
-            const teacher = cleanWhiteSpaces(a.querySelector('div .label').textContent);
-            const courseStartsInfo = cleanWhiteSpaces(a.querySelector('div .course-start-info').textContent);
+            const title = a.querySelector('div > h3').textContent.replace(/\s\s+/g, '');
+            const teacher = a.querySelector('div .label').textContent.replace(/\s\s+/g, '');
+            const courseStartsInfo = a.querySelector('div .course-start-info').textContent.replace(/\s\s+/g, '');
 
             return {
                 courseUrl,
@@ -88,7 +89,6 @@ const scrapeCourses = async () => {
 };
 
 
-const cleanWhiteSpaces = (text) => text.replace(/\s\s+/g, '');
 
 const autoScroll = async (page) => {
     await page.evaluate(async () => {
