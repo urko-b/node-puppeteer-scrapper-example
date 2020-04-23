@@ -6,7 +6,6 @@ const cheerio = require('cheerio');
 const getUrls = require('get-urls');
 const fetch = require('node-fetch');
 const puppeteer = require('puppeteer');
-const { parse } = require('himalaya');
 
 
 const scrapeMetaTags = (text) => {
